@@ -4,8 +4,12 @@ import 'package:refreshed/refreshed.dart';
 import 'package:tools/env.dart';
 import 'package:tools/tool_page.dart';
 
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// 使路由不携带"#"
+  // setUrlStrategy();
   runApp(const MainApp());
 }
 
@@ -18,21 +22,30 @@ class MainApp extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Env.themeMode,
       builder: (context, ThemeMode themeMode, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: 'Tools for Flutter',
           theme: ThemeData.light(),
           darkTheme: ThemeData.dark(),
+          getPages: [
+            GetPage(name: '/', page: () => const ToolPage()),
+            GetPage(
+                name: '/date-caluculation',
+                page: () => const ToolPage(toolType: ToolType.dateCalculation)),
+            GetPage(
+                name: '/json-utils',
+                page: () => const ToolPage(toolType: ToolType.jsonUtils)),
+            GetPage(
+                name: '/world-time',
+                page: () => const ToolPage(toolType: ToolType.worldTime)),
+          ],
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          // supportedLocales: const [
-          //   Locale('zh'),
-          //   Locale('en'),
-          // ],
           themeMode: themeMode,
-          home: const ToolPage(),
+          initialRoute: '/',
+          home: const Text("hello"),
         );
       },
     );
