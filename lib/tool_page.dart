@@ -3,7 +3,7 @@ import 'package:refreshed/refreshed.dart';
 import 'package:tools/date_tools/date_calculation.dart';
 import 'package:tools/env.dart';
 import 'package:tools/json_tools/json_utils.dart';
-import 'package:tools/world_time.dart';
+import 'package:tools/world_time/index.dart';
 
 enum ToolType {
   defaultPage("默认显示页面", disPlay: false),
@@ -16,6 +16,8 @@ enum ToolType {
   const ToolType(this.name, {this.disPlay = true});
 }
 
+const Widget _defaultWidget = Text("工具箱由 Flutter 实现, 理解为Demo");
+
 class ToolController extends GetxController {
   ToolController({ToolType? toolType}) : super() {
     if (toolType != null) {
@@ -24,10 +26,10 @@ class ToolController extends GetxController {
     }
   }
   final Rx<ToolType> toolType = Rx<ToolType>(ToolType.defaultPage);
-  final Rx<Widget> widget = Rx<Widget>(const Text("工具箱由 Flutter 实现, 理解为Demo"));
+  final Rx<Widget> widget = Rx<Widget>(_defaultWidget);
 
   final Map<ToolType, Widget Function()> toolMap = {
-    ToolType.defaultPage: () => const Text("工具箱由 Flutter 实现, 理解为Demo"),
+    ToolType.defaultPage: () => _defaultWidget,
     ToolType.dateCalculation: () => DateCalculation(),
     ToolType.jsonUtils: () => JsonUtilsPage(),
     ToolType.worldTime: () => const WorldTime(),
@@ -68,9 +70,9 @@ class ToolPage extends StatelessWidget {
               ? ThemeMode.light
               : ThemeMode.dark;
         },
-        child: Theme.of(context).brightness == Brightness.dark
-            ? const Icon(Icons.light_mode)
-            : const Icon(Icons.dark_mode),
+        child: Icon(Theme.of(context).brightness == Brightness.dark
+            ? Icons.light_mode
+            : Icons.dark_mode),
       ),
       body: GetBuilder<ToolController>(
           init: ToolController(toolType: toolType),

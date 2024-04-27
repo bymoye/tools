@@ -4,12 +4,8 @@ import 'package:refreshed/refreshed.dart';
 import 'package:tools/env.dart';
 import 'package:tools/tool_page.dart';
 
-// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  /// 使路由不携带"#"
-  // setUrlStrategy();
   runApp(const MainApp());
 }
 
@@ -45,7 +41,6 @@ class MainApp extends StatelessWidget {
           ],
           themeMode: themeMode,
           initialRoute: '/',
-          home: const Text("hello"),
         );
       },
     );
