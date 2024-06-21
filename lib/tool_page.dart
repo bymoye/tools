@@ -4,12 +4,19 @@ import 'package:tools/date_tools/date_calculation.dart';
 import 'package:tools/env.dart';
 import 'package:tools/json_tools/json_utils.dart';
 import 'package:tools/world_time/index.dart';
+import 'package:web/web.dart' as web;
 
 enum ToolType {
   defaultPage("默认显示页面", disPlay: false),
   dateCalculation("日期计算"),
   jsonUtils("JSON压缩/格式化工具"),
-  worldTime("世界时间");
+  worldTime("世界时间"),
+
+  /// 图片处理
+  imageProcess("图片处理");
+
+  /// 二维码生成
+  /// 二维码识别
 
   final String name;
   final bool disPlay;
@@ -33,6 +40,15 @@ class ToolController extends GetxController {
     ToolType.dateCalculation: () => DateCalculation(),
     ToolType.jsonUtils: () => JsonUtilsPage(),
     ToolType.worldTime: () => const WorldTime(),
+    ToolType.imageProcess: () {
+      /// 跳转到squoosh
+      web.window.open("https://squoosh.app/", "squoosh");
+      return InkWell(
+          child: const Text("跳转到图片处理页面"),
+          onTap: () {
+            web.window.open("https://squoosh.app/", "squoosh");
+          });
+    }
   };
 
   @override
