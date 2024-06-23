@@ -1,45 +1,88 @@
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:refreshed/refreshed.dart';
-import 'package:tools/agent/api.dart';
-import 'package:tools/world_time/controller.dart';
+import 'package:flutter/scheduler.dart';
 
-class WorldTime extends StatelessWidget {
+class WorldTime extends StatefulWidget {
   const WorldTime({super.key});
 
   @override
+  State<WorldTime> createState() => _WorldTimeState();
+}
+
+class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
+  late final Ticker _ticker;
+  late final Ticker _ticker2;
+  late DateTime _currentTime = DateTime.now();
+  Duration _duration = const Duration(seconds: 1);
+  DateTime? remoteTime;
+
+  // DateTime? get worldTime => remoteTime?.add(_duration);
+
+  @override
+  void initState() {
+    super.initState();
+    _ticker = createTicker((Duration duration) {
+      _updateTime();
+    });
+    // 5. start ticker
+    _ticker.start();
+    fetchWorldTime();
+  }
+
+  void _updateTime() {
+    setState(() {
+      _currentTime = DateTime.now();
+    });
+  }
+
+  void fetchWorldTime() async {
+    var r = await Dio().get("http://quan.suning.com/getSysTime.do");
+    log(r.data.toString());
+    setState(() {
+      remoteTime = DateTime.parse(jsonDecode(r.data.toString())["sysTime2"]);
+    });
+    _ticker2 = createTicker((Duration duration) {
+      _duration = duration;
+    });
+    _ticker2.start();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-        init: WorldTimeController(),
-        builder: (controller) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text("世界时间"),
-                Obx(
-                  () => controller.dateTime.value == null
-                      ? const Text("校准中...")
-                      : Text(
-                          controller.worldTime.toLocal().toString(),
-                          style: const TextStyle(fontSize: 24),
-                        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text("世界时间"),
+          remoteTime == null
+              ? const Text("校准中...")
+              : Text(
+                  remoteTime!.add(_duration).toLocal().toString(),
+                  style: const TextStyle(fontSize: 24),
                 ),
-                const Text("Hello WorldTime!"),
-                const Text("说明"),
-                const Text("时间由以下算法计算:"
-                    "1. 后端服务器每分钟与 NTP 服务器同步一次"
-                    "2. 前端每分钟请求后端服务器时间, 由后端根据 NTP 服务器缓存时间返回当前时间"
-                    "客户端发起请求时记录本地时间为T1(Transmit Timestamp)"
-                    "服务器接受到请求时记录服务器时间T2(Receive Timestamp)"
-                    "服务器根据 NTP 缓存和当前时间计算最终时间返回T3(Origin Timestamp)"
-                    "客户端接受到数据时记录本地时间T4(Destination Timestamp)")
-              ],
-            ),
-          );
-        });
+
+          /// 本地时间(需要实时更新)
+          const Text("本地时间"),
+          Text(
+            _currentTime.toLocal().toString(),
+            style: const TextStyle(fontSize: 24),
+          ),
+
+          Text(_duration.toString())
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    _ticker2.dispose();
+    super.dispose();
   }
 }

@@ -16,38 +16,51 @@ class DioAgent {
     );
   }
 
-  Future<Response> get(String path,
-      {Map<String, dynamic>? queryParameters, Options? options}) {
-    return dio.get(path, queryParameters: queryParameters, options: options);
-  }
+  Future<Response> Function<T>(String path,
+      {CancelToken? cancelToken,
+      Object? data,
+      ProgressCallback? onReceiveProgress,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get get => dio.get;
 
-  Future<Response> post(String path,
-      {Map<String, dynamic>? data, Options? options}) {
-    return dio.post(path, data: data, options: options);
-  }
+  Future<Response> Function<T>(String path,
+      {CancelToken? cancelToken,
+      Object? data,
+      ProgressCallback? onReceiveProgress,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get post => dio.post;
 
-  Future<Response> put(String path,
-      {Map<String, dynamic>? data, Options? options}) {
-    return dio.put(path, data: data, options: options);
-  }
+  Future<Response> Function<T>(String path,
+      {CancelToken? cancelToken,
+      Object? data,
+      ProgressCallback? onReceiveProgress,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get put => dio.put;
 
-  Future<Response> delete(String path,
-      {Map<String, dynamic>? data, Options? options}) {
-    return dio.delete(path, data: data);
-  }
+  Future<Response> Function<T>(String path,
+      {CancelToken? cancelToken,
+      Object? data,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get delete => dio.delete;
 
-  Future<Response> patch(String path,
-      {Map<String, dynamic>? data, Options? options}) {
-    return dio.patch(path, data: data);
-  }
+  Future<Response> Function<T>(String path,
+      {CancelToken? cancelToken,
+      Object? data,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get patch => dio.patch;
 
-  Future<Response> head(String path,
-      {Map<String, dynamic>? data, Options? options}) {
-    return dio.head(path, data: data);
-  }
+  Future<Response> Function<T>(String path,
+      {CancelToken? cancelToken,
+      Object? data,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get head => dio.head;
 
-  Future<Response> download(String path, String savePath,
-      {ProgressCallback? onReceiveProgress}) {
-    return dio.download(path, savePath, onReceiveProgress: onReceiveProgress);
-  }
+  Future<Response> Function(String urlPath, dynamic savePath,
+      {CancelToken? cancelToken,
+      Object? data,
+      bool deleteOnError,
+      String lengthHeader,
+      ProgressCallback? onReceiveProgress,
+      Options? options,
+      Map<String, dynamic>? queryParameters}) get download => dio.download;
 }
