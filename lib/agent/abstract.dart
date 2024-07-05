@@ -7,10 +7,13 @@ class DioAgent {
     dio.interceptors.add(
       InterceptorsWrapper(onRequest:
           (RequestOptions options, RequestInterceptorHandler handler) {
-        options.extra = {"startTime": DateTime.now().millisecondsSinceEpoch};
+        options.extra = {
+          "startTime": DateTime.now().toUtc().millisecondsSinceEpoch
+        };
         return handler.next(options);
       }, onResponse: (response, handler) {
-        response.extra["endTime"] = DateTime.now().millisecondsSinceEpoch;
+        response.extra["endTime"] =
+            DateTime.now().toUtc().millisecondsSinceEpoch;
         return handler.next(response);
       }),
     );

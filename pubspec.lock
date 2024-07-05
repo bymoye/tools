@@ -109,10 +109,18 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "11e40df547d418cc0c4900a9318b26304e665da6fa4755399a9ff9efd09034b5"
+      sha256: e17f6b3097b8c51b72c74c9f071a605c47bcc8893839bd66732457a5ebe73714
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
-    version: "5.4.3+1"
+    version: "5.5.0+1"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "36c5b2d79eb17cdae41e974b7a8284fec631651d2a6f39a8a2ff22327e90aeac"
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "1.0.1"
   equatable:
     dependency: transitive
     description:
@@ -223,15 +231,23 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "8101c805242016c46671a1950887b3bda3c1c98d2078f99567c587c33b393343"
+      sha256: b2d8d8add7eabc18bf5577de72081aa4961777b373c1c17fdd2f14f65361d3fd
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
-    version: "9.4.6"
+    version: "9.5.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_timezone:
+    dependency: "direct main"
+    description:
+      name: flutter_timezone
+      sha256: b7448ff8a9e1350606727e40b3f314aa798a6a1cc07127eba58f09b98a66f03f
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "2.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -269,6 +285,22 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "0.19.0"
+  js:
+    dependency: transitive
+    description:
+      name: js
+      sha256: cf7243a0c29626284ada2add68a33f5b1102affe3509393e75136e0f6616bd68
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "0.6.8"
+  js_interop:
+    dependency: transitive
+    description:
+      name: js_interop
+      sha256: "7ec859c296958ccea34dc770504bd3ff4ae52fdd9e7eeb2bacc7081ad476a1f5"
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "0.0.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -361,10 +393,10 @@ packages:
     dependency: "direct main"
     description:
       name: refreshed
-      sha256: "889884098c57df730d36f83f29d42d8322e142fb862e02a12abae57c1ca1fd01"
+      sha256: fabb62232c5d18ed438262b3aeeef85abc797f22bc02c2ee2119cdf3f4b2da1c
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
-    version: "2.7.2"
+    version: "2.8.0"
   sky_engine:
     dependency: transitive
     description: flutter
