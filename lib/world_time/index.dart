@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:refreshed/refreshed.dart';
 import 'package:tools/agent/api.dart';
 
 class WorldTime extends StatefulWidget {
@@ -26,7 +22,8 @@ class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
     final Duration timeZoneOffset = _currentTime.timeZoneOffset;
     final int hours = timeZoneOffset.inHours;
     final int minutes = timeZoneOffset.inMinutes % 60;
-    return '${hours.isNegative ? "-" : "+"}${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}';
+    return '${hours.isNegative ? "-" : "+"}'
+        '${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}';
   }
 
   DateTime get displayRemoteTime {
@@ -45,15 +42,16 @@ class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
     if (lock) return;
     lock = true;
     var data = await APIProvider.getSysTime();
-    remoteTime = data.$1;
-    delay = data.$2;
-    // setState(() {
-    //   remoteTime = DateTime.parse(jsonDecode(r.data.toString())["sysTime2"]);
-    // });
-    /// 每当remoteTime为整数分钟时，重新校准偏移值
+    setState(() {
+      remoteTime = data.$1;
+      delay = data.$2;
+    });
     _ticker?.dispose();
     _ticker = createTicker((Duration duration) {
-      _duration = duration;
+      setState(() {
+        _duration = duration;
+      });
+      // _duration = duration;
       if (duration.inSeconds != 0 && duration.inSeconds % 60 == 0) {
         fetchWorldTime();
       }

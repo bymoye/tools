@@ -1,23 +1,24 @@
-import 'dart:developer';
-
-import 'package:dio/dio.dart';
+import 'package:http/http.dart';
 import 'package:tools/agent/abstract.dart';
 
 class APIProvider {
-  static final DioAgent dioAgent = DioAgent("https://api.nmxc.ltd");
+  static final HttpAgent httpAgent = HttpAgent("https://api.nmxc.ltd");
   static Future<Response> getUa() async {
-    return await dioAgent.get("/ua");
+    return await httpAgent.get(path: "/ua");
   }
 
   static Future<(DateTime, double)> getSysTime() async {
-    var r = await dioAgent.get("/timestamp");
-    if (r.statusCode == 200) {
-      /// 从请求头中获取请求时间
-      final int t1 = r.requestOptions.extra["startTime"];
-      final int serverTime = r.data["timestamp"];
+    /// 请求开始时间
+    final int t1 = DateTime.now().millisecondsSinceEpoch;
 
+    /// 发起请求
+    var r = await httpAgent.get(path: "/timestamp");
+
+    /// 请求结束时间
+    final int t3 = DateTime.now().millisecondsSinceEpoch;
+    if (r.statusCode == 204) {
       /// 从响应头中获取接收时间
-      final int t3 = r.extra["endTime"];
+      final int serverTime = int.parse(r.headers["timestamp"]!);
 
       /// 延迟
       final int delay = (t3 - t1) ~/ 2;
@@ -27,6 +28,6 @@ class APIProvider {
         delay / 1000
       );
     }
-    return (DateTime.now(), 0.0);
+    return (DateTime.now().toUtc(), 0.0);
   }
 }

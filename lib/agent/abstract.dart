@@ -1,69 +1,30 @@
-import 'package:dio/dio.dart';
+import 'package:fetch_client/fetch_client.dart';
+import 'package:http/http.dart';
 
-class DioAgent {
-  final Dio dio;
+class HttpAgent {
+  final String baseUrl;
+  final client = FetchClient(mode: RequestMode.cors);
 
-  DioAgent(String baseUrl) : dio = Dio(BaseOptions(baseUrl: baseUrl)) {
-    dio.interceptors.add(
-      InterceptorsWrapper(onRequest:
-          (RequestOptions options, RequestInterceptorHandler handler) {
-        options.extra = {
-          "startTime": DateTime.now().toUtc().millisecondsSinceEpoch
-        };
-        return handler.next(options);
-      }, onResponse: (response, handler) {
-        response.extra["endTime"] =
-            DateTime.now().toUtc().millisecondsSinceEpoch;
-        return handler.next(response);
-      }),
-    );
+  HttpAgent(this.baseUrl);
+
+  Uri buildUri(String path, Map<String, String>? queryParameters) {
+    return Uri.parse(baseUrl)
+        .replace(path: path, queryParameters: queryParameters);
   }
 
-  Future<Response> Function<T>(String path,
-      {CancelToken? cancelToken,
-      Object? data,
-      ProgressCallback? onReceiveProgress,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get get => dio.get;
+  Future<Response> get({
+    required String path,
+    Map<String, String>? queryParameters,
+    Map<String, String>? headers,
+  }) =>
+      client.get(buildUri(path, queryParameters), headers: headers);
 
-  Future<Response> Function<T>(String path,
-      {CancelToken? cancelToken,
-      Object? data,
-      ProgressCallback? onReceiveProgress,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get post => dio.post;
-
-  Future<Response> Function<T>(String path,
-      {CancelToken? cancelToken,
-      Object? data,
-      ProgressCallback? onReceiveProgress,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get put => dio.put;
-
-  Future<Response> Function<T>(String path,
-      {CancelToken? cancelToken,
-      Object? data,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get delete => dio.delete;
-
-  Future<Response> Function<T>(String path,
-      {CancelToken? cancelToken,
-      Object? data,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get patch => dio.patch;
-
-  Future<Response> Function<T>(String path,
-      {CancelToken? cancelToken,
-      Object? data,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get head => dio.head;
-
-  Future<Response> Function(String urlPath, dynamic savePath,
-      {CancelToken? cancelToken,
-      Object? data,
-      bool deleteOnError,
-      String lengthHeader,
-      ProgressCallback? onReceiveProgress,
-      Options? options,
-      Map<String, dynamic>? queryParameters}) get download => dio.download;
+  Future<Response> post({
+    required String path,
+    Map<String, String>? queryParameters,
+    Map<String, String>? headers,
+    dynamic body,
+  }) =>
+      client.post(buildUri(path, queryParameters),
+          headers: headers, body: body);
 }
