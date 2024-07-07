@@ -30,8 +30,6 @@ class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
     return remoteTime!.add(_duration);
   }
 
-  // DateTime? get worldTime => remoteTime?.add(_duration);
-
   @override
   void initState() {
     super.initState();
@@ -62,41 +60,98 @@ class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              color: isDarkMode ? Colors.grey[850] : Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildTimeSection(
+                      context,
+                      isDarkMode: isDarkMode,
+                      title: "标准(UTC)时间",
+                      content: remoteTime == null
+                          ? "校准中..."
+                          : displayRemoteTime.toString(),
+                    ),
+                    if (remoteTime != null)
+                      _buildTimeSection(
+                        context,
+                        isDarkMode: isDarkMode,
+                        title: "精准度偏差",
+                        content: "±$delay 秒钟",
+                      ),
+                    _buildTimeSection(
+                      context,
+                      isDarkMode: isDarkMode,
+                      title: "当前设备时区",
+                      content: _currentTime.timeZoneName,
+                    ),
+                    _buildTimeSection(
+                      context,
+                      isDarkMode: isDarkMode,
+                      title: "当前设备时区偏移",
+                      content: formattedTimeZoneOffset,
+                    ),
+                    if (remoteTime != null)
+                      _buildTimeSection(
+                        context,
+                        isDarkMode: isDarkMode,
+                        title: "当前时区时间",
+                        content: displayRemoteTime.toLocal().toString(),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTimeSection(BuildContext context,
+      {required bool isDarkMode,
+      required String title,
+      required String content}) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text("标准(UTC)时间"),
-          if (remoteTime == null)
-            const Text("校准中...")
-          else ...[
-            Text(
-              displayRemoteTime.toString(),
-              style: const TextStyle(fontSize: 24),
-            ),
-            Text(
-              "精准度偏差： ±$delay 秒钟",
-              style: const TextStyle(fontSize: 24),
-            ),
-          ],
-          const Text("当前设备时区"),
           Text(
-            _currentTime.timeZoneName,
-            style: const TextStyle(fontSize: 24),
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: isDarkMode ? Colors.lightBlue[100] : Colors.blue[700],
+            ),
           ),
-          const Text("当前设备时区偏移"),
+          const SizedBox(height: 8),
           Text(
-            formattedTimeZoneOffset,
-            style: const TextStyle(fontSize: 24),
+            content,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+              color: isDarkMode ? Colors.white : Colors.black87,
+            ),
           ),
-          if (remoteTime != null) ...[
-            const Text("当前时区时间"),
-            Text(
-              displayRemoteTime.toLocal().toString(),
-              style: const TextStyle(fontSize: 24),
-            )
-          ],
+          const SizedBox(height: 8),
+          Divider(color: isDarkMode ? Colors.grey[700] : Colors.grey[300]),
         ],
       ),
     );

@@ -80,11 +80,9 @@ class BasePage extends StatelessWidget {
                       valueListenable: searchRx,
                       builder: (context, value, child) {
                         final List<FunctionEnum> list = FunctionEnum.values
-                            .where((element) =>
-                                element.disPlay &&
-                                (searchRx.value.isNotEmpty
-                                    ? element.name.contains(searchRx.value)
-                                    : true))
+                            .where((element) => (searchRx.value.isNotEmpty
+                                ? element.name.contains(searchRx.value)
+                                : true))
                             .toList();
                         if (list.isEmpty) {
                           return const ListTile(
