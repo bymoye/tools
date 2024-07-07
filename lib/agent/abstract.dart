@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 
 class HttpAgent {
   final String baseUrl;
-  final client = FetchClient(mode: RequestMode.cors);
+  final FetchClient client = FetchClient(mode: RequestMode.cors);
 
   HttpAgent(this.baseUrl);
 

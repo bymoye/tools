@@ -80,9 +80,6 @@ class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
               style: const TextStyle(fontSize: 24),
             ),
           ],
-
-          /// 本地时间(需要实时更新)
-
           const Text("当前设备时区"),
           Text(
             _currentTime.timeZoneName,
@@ -100,7 +97,6 @@ class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
               style: const TextStyle(fontSize: 24),
             )
           ],
-          // Text(_duration.toString())
         ],
       ),
     );
