@@ -81,7 +81,6 @@ class BasePage extends StatelessWidget {
                       builder: (context, value, child) {
                         final List<FunctionEnum> list = FunctionEnum.values
                             .where((element) =>
-                                element.route.isNotEmpty &&
                                 element.disPlay &&
                                 (searchRx.value.isNotEmpty
                                     ? element.name.contains(searchRx.value)
@@ -96,14 +95,11 @@ class BasePage extends StatelessWidget {
                         return Column(
                           children: list
                               .map((e) => ListTile(
-                                    title: Text(e.name),
-                                    tileColor: e.route == Get.currentRoute
-                                        ? Colors.blue.withOpacity(0.2)
-                                        : null,
-                                    onTap: () {
-                                      Get.offAllNamed(e.route);
-                                    },
-                                  ))
+                                  title: Text(e.name),
+                                  tileColor: e.route == Get.currentRoute
+                                      ? Colors.blue.withOpacity(0.2)
+                                      : null,
+                                  onTap: e.onTap))
                               .toList(),
                         );
                       }),
