@@ -5,6 +5,7 @@ import 'package:tools/date_tools/date_calculation.dart'
 import 'package:tools/index/index.dart' deferred as index;
 import 'package:tools/json_tools/json_utils.dart' deferred as json_utils;
 import 'package:tools/world_time/index.dart' deferred as world_time;
+import 'package:tools/uuid_tools/index.dart' deferred as uuid_tools;
 import 'package:web/web.dart' as web;
 
 enum FunctionEnum {
@@ -12,6 +13,7 @@ enum FunctionEnum {
   dateCalculation("日期计算", route: "/date-caluculation"),
   jsonUtils("JSON压缩/格式化工具", route: "/json-utils"),
   worldTime("世界时间", route: "/world-time"),
+  uuidTools("UUID工具", route: "/uuid-tools"),
 
   /// 图片处理
   imageProcess("图片处理");
@@ -40,6 +42,10 @@ enum FunctionEnum {
       FunctionEnum.worldTime => () async {
           await world_time.loadLibrary();
           return world_time.WorldTime();
+        },
+      FunctionEnum.uuidTools => () async {
+          await uuid_tools.loadLibrary();
+          return uuid_tools.UuidToolsPage();
         },
       _ => () async {
           return const SizedBox();
