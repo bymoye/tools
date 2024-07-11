@@ -20,10 +20,13 @@ class MainApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       getPages: [
-        ...FunctionEnum.values.where((element) => element.route.isNotEmpty).map(
-            (e) => GetPage(
+        ...FunctionEnum.values
+            .where((element) => element.route.isNotEmpty)
+            .map((e) => GetPage(
                 name: e.route,
-                page: () => BasePage(title: e.name, child: e.widget))),
+                page: () {
+                  return BasePage(title: e.name, child: e.widget);
+                })),
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:refreshed/refreshed.dart';
-import 'package:tools/date_tools/date_calculation.dart';
-import 'package:tools/index/index.dart';
-import 'package:tools/json_tools/json_utils.dart';
-import 'package:tools/world_time/index.dart';
+import 'package:tools/date_tools/date_calculation.dart'
+    deferred as date_calculation;
+import 'package:tools/index/index.dart' deferred as index;
+import 'package:tools/json_tools/json_utils.dart' deferred as json_utils;
+import 'package:tools/world_time/index.dart' deferred as world_time;
 import 'package:web/web.dart' as web;
 
 enum FunctionEnum {
@@ -22,19 +23,28 @@ enum FunctionEnum {
   final String route;
   const FunctionEnum(this.name, {this.route = ""});
 
-  Widget get widget {
-    switch (this) {
-      case FunctionEnum.defaultPage:
-        return const IndexPage();
-      case FunctionEnum.dateCalculation:
-        return DateCalculation();
-      case FunctionEnum.jsonUtils:
-        return JsonUtilsPage();
-      case FunctionEnum.worldTime:
-        return const WorldTime();
-      default:
-        return const SizedBox();
-    }
+  Future<Widget> Function() get widget {
+    return switch (this) {
+      FunctionEnum.defaultPage => () async {
+          await index.loadLibrary();
+          return index.IndexPage();
+        },
+      FunctionEnum.dateCalculation => () async {
+          await date_calculation.loadLibrary();
+          return date_calculation.DateCalculation();
+        },
+      FunctionEnum.jsonUtils => () async {
+          await json_utils.loadLibrary();
+          return json_utils.JsonUtilsPage();
+        },
+      FunctionEnum.worldTime => () async {
+          await world_time.loadLibrary();
+          return world_time.WorldTime();
+        },
+      _ => () async {
+          return const SizedBox();
+        }
+    };
   }
 
   void onTap() {
