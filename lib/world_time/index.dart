@@ -5,14 +5,15 @@ import 'package:flutter/scheduler.dart';
 import 'package:tools/agent/api.dart';
 import 'package:web/web.dart' as web;
 
-class WorldTime extends StatefulWidget {
-  const WorldTime({super.key});
+class WorldTimePage extends StatefulWidget {
+  const WorldTimePage({super.key});
 
   @override
-  State<WorldTime> createState() => _WorldTimeState();
+  State<WorldTimePage> createState() => _WorldTimeState();
 }
 
-class _WorldTimeState extends State<WorldTime> with TickerProviderStateMixin {
+class _WorldTimeState extends State<WorldTimePage>
+    with TickerProviderStateMixin {
   Ticker? _ticker;
   Timer? _visibilityChangeTimer;
   StreamSubscription<web.Event>? _visibilityChangeSubscription;

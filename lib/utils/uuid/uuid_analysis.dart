@@ -24,30 +24,31 @@ class UuidAnalysis extends UuidValue {
     }
   }
 
-  int get timeLow {
-    return int.parse(uuid.substring(0, 8), radix: 16);
+  BigInt get timeLow {
+    return BigInt.parse(uuid.substring(0, 8), radix: 16);
   }
 
-  int get timeMid {
-    return int.parse(uuid.substring(9, 13), radix: 16);
+  BigInt get timeMid {
+    return BigInt.parse(uuid.substring(9, 13), radix: 16);
   }
 
-  int get timeHigh {
-    return int.parse(uuid.substring(14, 18), radix: 16);
+  BigInt get timeHigh {
+    return BigInt.parse(uuid.substring(14, 18), radix: 16);
   }
 
-  @override
-  int get time {
+  BigInt get bigTime {
+    BigInt mark = BigInt.from(0x0fff);
     if (version == 1) {
-      return ((timeHigh & 0xfff) << 48) | (timeMid << 32) | timeLow;
+      return ((timeHigh & mark) << 48) | (timeMid << 32) | timeLow;
     }
     if (version == 6) {
-      return (timeLow << 28) | (timeMid << 12) | ((timeLow & 0x0FFF));
+      return (timeLow << 28) | (timeMid << 12) | (timeLow & mark);
     }
     if (version == 7) {
-      return int.parse(uuid.substring(0, 8) + uuid.substring(9, 13), radix: 16);
+      return BigInt.parse(uuid.substring(0, 8) + uuid.substring(9, 13),
+          radix: 16);
     }
-    return -1;
+    return BigInt.from(0);
   }
 
   String get bitLayout {
@@ -65,11 +66,32 @@ class UuidAnalysis extends UuidValue {
 
   DateTime get timeValue {
     if ([1, 6].contains(version)) {
-      return DateTime.utc(1582, 10, 15).add(Duration(microseconds: time ~/ 10));
+      return DateTime.utc(1582, 10, 15).add(
+        Duration(microseconds: (bigTime ~/ BigInt.from(10)).toInt()),
+      );
     }
     if (version == 7) {
-      return DateTime.fromMillisecondsSinceEpoch(time, isUtc: true);
+      return DateTime.fromMillisecondsSinceEpoch(bigTime.toInt(), isUtc: true);
     }
     return DateTime.fromMillisecondsSinceEpoch(0);
+  }
+
+  BigInt get toIntegerValue {
+    return BigInt.parse(uuid.replaceAll("-", ""), radix: 16);
+  }
+
+  Map<String, dynamic> get displayMap {
+    final Map<String, dynamic> map = {
+      "UUID": uuid,
+      "整数值": toIntegerValue.toString(),
+      "版本": version,
+      "变种": variant,
+    };
+    if ([1, 6, 7].contains(version)) {
+      map["时间戳"] = bigTime;
+      map["时间"] = timeValue.toIso8601String();
+    }
+    map["位布局"] = bitLayout;
+    return map;
   }
 }

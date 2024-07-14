@@ -19,15 +19,16 @@ class MainApp extends StatelessWidget {
       title: 'Tools for Flutter',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      getPages: [
-        ...FunctionEnum.values
-            .where((element) => element.route.isNotEmpty)
-            .map((e) => GetPage(
-                name: e.route,
-                page: () {
-                  return BasePage(title: e.name, child: e.widget);
-                })),
-      ],
+      getPages: FunctionEnum.values
+          .where((element) => element.route.isNotEmpty)
+          .map(
+            (e) => GetPage(
+              name: e.route,
+              page: () => BasePage(title: e.name, child: e.widget),
+            ),
+          )
+          .toList(),
+
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
