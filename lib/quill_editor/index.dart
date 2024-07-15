@@ -5,7 +5,8 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart'
         FlutterQuillEmbeds,
         QuillToolbarCameraButtonOptions,
         QuillToolbarImageButtonOptions,
-        QuillToolbarImageConfigurations;
+        QuillToolbarImageConfigurations,
+        QuillToolbarTableButtonOptions;
 import 'package:refreshed/refreshed.dart';
 import 'package:tools/quill_editor/controller.dart';
 

@@ -263,12 +263,13 @@ packages:
     source: hosted
     version: "1.0.10"
   flutter_inappwebview_web:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: flutter_inappwebview_web
-      sha256: d8c680abfb6fec71609a700199635d38a744df0febd5544c5a020bd73de8ee07
-      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
-    source: hosted
+      path: flutter_inappwebview_web
+      ref: master
+      resolved-ref: "53e9214d9d7d417238a40ac9762226e79d337262"
+      url: "https://github.com/p-mazhnik/flutter_inappwebview.git"
+    source: git
     version: "1.0.8"
   flutter_keyboard_visibility:
     dependency: transitive
@@ -513,14 +514,6 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "0.7.0"
-  js:
-    dependency: transitive
-    description:
-      name: js
-      sha256: cf7243a0c29626284ada2add68a33f5b1102affe3509393e75136e0f6616bd68
-      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
-    source: hosted
-    version: "0.6.8"
   json_annotation:
     dependency: transitive
     description:

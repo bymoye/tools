@@ -54,6 +54,12 @@ dependency_overrides:
       url: https://github.com/raldhafiri/flutter_keyboard_visibility.git
       ref: master
       path: flutter_keyboard_visibility_web
+
+  flutter_inappwebview_web:
+    git:
+      url: https://github.com/p-mazhnik/flutter_inappwebview.git
+      ref: master
+      path: flutter_inappwebview_web
   
   meta: ^1.15.0
 
