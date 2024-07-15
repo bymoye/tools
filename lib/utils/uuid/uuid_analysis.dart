@@ -14,7 +14,7 @@ class UuidAnalysis extends UuidValue {
     if (variantInt != null && variantInt >= 1 && variantInt <= 7) {
       return '为 NCS 兼容性保留';
     } else if (["8", "9", "A", "B"].contains(variantByte)) {
-      return '在 RFC 9562 中指定';
+      return '在 (RFC 9562/RFC 4122) 中指定';
     } else if (["C", "D"].contains(variantByte)) {
       return '为与 Microsoft 兼容而保留';
     } else if (["E", "F"].contains(variantByte)) {
@@ -37,7 +37,7 @@ class UuidAnalysis extends UuidValue {
   }
 
   BigInt get bigTime {
-    BigInt mark = BigInt.from(0x0fff);
+    final BigInt mark = BigInt.from(0x0fff);
     if (version == 1) {
       return ((timeHigh & mark) << 48) | (timeMid << 32) | timeLow;
     }

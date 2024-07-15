@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:refreshed/refreshed.dart';
-import 'package:tools/date_calculation/index.dart' deferred as date_calculation;
+import 'package:web/web.dart' as web;
 import 'package:tools/index/index.dart' deferred as index;
+import 'package:tools/date_calculation/index.dart' deferred as date_calculation;
 import 'package:tools/json_tools/json_utils.dart' deferred as json_utils;
 import 'package:tools/world_time/index.dart' deferred as world_time;
 import 'package:tools/uuid_tools/parse.dart' deferred as uuid_tools;
 import 'package:tools/uuid_tools/generate.dart' deferred as uuid_generate;
-import 'package:web/web.dart' as web;
+import 'package:tools/quill_editor/index.dart' deferred as quill_editor;
 
 enum FunctionEnum {
   defaultPage("首页", route: "/"),
@@ -15,6 +16,7 @@ enum FunctionEnum {
   worldTime("世界时间", route: "/world-time"),
   uuidParse("UUID解析", route: "/uuid-parse"),
   uuidGenerate("UUID生成", route: "/uuid-generate"),
+  quillEditor("Quill编辑器", route: "/quill-editor"),
 
   /// 图片处理
   imageProcess("图片处理");
@@ -51,6 +53,11 @@ enum FunctionEnum {
       FunctionEnum.uuidGenerate => () async {
           await uuid_generate.loadLibrary();
           return uuid_generate.UUuidGeneratePage();
+        },
+      FunctionEnum.quillEditor => () async {
+          await quill_editor.loadLibrary();
+          return quill_editor.QuillEditorPage();
+          // return const SizedBox();
         },
       _ => () async {
           return const SizedBox();

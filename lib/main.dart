@@ -19,6 +19,10 @@ class MainApp extends StatelessWidget {
       title: 'Tools for Flutter',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
+      supportedLocales: const [
+        Locale('zh', 'CN'),
+        Locale('en', 'US'),
+      ],
       getPages: FunctionEnum.values
           .where((element) => element.route.isNotEmpty)
           .map(
