@@ -8,26 +8,28 @@ class APIProvider {
   }
 
   static Future<(DateTime, double)> getSysTime() async {
-    /// 请求开始时间
-    final int t1 = DateTime.now().millisecondsSinceEpoch;
+    /// 创建一个Stopwatch实例
+    final stopwatch = Stopwatch()..start();
 
     /// 发起请求
     var r = await httpAgent.get(path: "/timestamp");
 
-    /// 请求结束时间
-    final int t3 = DateTime.now().millisecondsSinceEpoch;
+    /// 停止Stopwatch
+    stopwatch.stop();
     if (r.statusCode == 204) {
-      /// 从响应头中获取接收时间
-      final int serverTime = int.parse(r.headers["timestamp"]!);
+      /// 从响应头中获取服务器时间戳（毫秒级时间戳）
+      final int serverTimeMs = int.parse(r.headers["timestamp"]!);
 
-      /// 延迟
-      final int delay = (t3 - t1) ~/ 2;
+      /// 延迟时间，以毫秒为单位
+      final int delayMs = stopwatch.elapsedMilliseconds ~/ 2;
 
       return (
-        DateTime.fromMillisecondsSinceEpoch(serverTime, isUtc: true),
-        delay / 1000
+        /// 将毫秒时间戳转换为 DateTime
+        DateTime.fromMillisecondsSinceEpoch(serverTimeMs, isUtc: true),
+        delayMs / 1000 // 转换为秒作为延迟时间
       );
     }
+
     return (DateTime.now().toUtc(), 0.0);
   }
 }

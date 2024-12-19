@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:refreshed/refreshed.dart';
 import 'package:web/web.dart' as web;
+
+/// 首页
 import 'package:tools/index/index.dart' deferred as index;
+
+/// 日期计算
 import 'package:tools/date_calculation/index.dart' deferred as date_calculation;
+
+/// JSON工具
 import 'package:tools/json_tools/json_utils.dart' deferred as json_utils;
+
+/// 世界时间
 import 'package:tools/world_time/index.dart' deferred as world_time;
+
+/// UUID工具
 import 'package:tools/uuid_tools/parse.dart' deferred as uuid_tools;
 import 'package:tools/uuid_tools/generate.dart' deferred as uuid_generate;
-import 'package:tools/quill_editor/index.dart' deferred as quill_editor;
+
+/// 二维码工具
+import 'package:tools/qr_code/parse/index.dart' deferred as qr_code_parse;
+
+/// Quill编辑器
+// import 'package:tools/quill_editor/index.dart' deferred as quill_editor;
 
 enum FunctionEnum {
   defaultPage("首页", route: "/"),
@@ -16,7 +31,8 @@ enum FunctionEnum {
   worldTime("世界时间", route: "/world-time"),
   uuidParse("UUID解析", route: "/uuid-parse"),
   uuidGenerate("UUID生成", route: "/uuid-generate"),
-  quillEditor("Quill编辑器", route: "/quill-editor"),
+  qrCodeParse("二维码解析", route: "/qr-code-parser"),
+  // quillEditor("Quill编辑器", route: "/quill-editor"),
 
   /// 图片处理
   imageProcess("图片处理");
@@ -54,11 +70,15 @@ enum FunctionEnum {
           await uuid_generate.loadLibrary();
           return uuid_generate.UUuidGeneratePage();
         },
-      FunctionEnum.quillEditor => () async {
-          await quill_editor.loadLibrary();
-          return quill_editor.QuillEditorPage();
-          // return const SizedBox();
+      FunctionEnum.qrCodeParse => () async {
+          await qr_code_parse.loadLibrary();
+          return qr_code_parse.QrCodeParsePage();
         },
+      // FunctionEnum.quillEditor => () async {
+      //     await quill_editor.loadLibrary();
+      //     return quill_editor.QuillEditorPage();
+      //     // return const SizedBox();
+      //   },
       _ => () async {
           return const SizedBox();
         }

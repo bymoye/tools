@@ -5,11 +5,14 @@ class HttpAgent {
   final String baseUrl;
   final FetchClient client = FetchClient(mode: RequestMode.cors);
 
-  HttpAgent(this.baseUrl);
+  HttpAgent(this.baseUrl) {
+    _uri = Uri.parse(baseUrl);
+  }
+
+  late final Uri _uri;
 
   Uri buildUri(String path, Map<String, String>? queryParameters) {
-    return Uri.parse(baseUrl)
-        .replace(path: path, queryParameters: queryParameters);
+    return _uri.replace(path: path, queryParameters: queryParameters);
   }
 
   Future<Response> get({

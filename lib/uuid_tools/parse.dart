@@ -90,9 +90,8 @@ class _UUidToolsState extends State<UuidParsePage> {
                           borderRadius: BorderRadius.circular(8.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context)
-                                  .shadowColor
-                                  .withOpacity(0.1),
+                              color:
+                                  Theme.of(context).shadowColor.withAlpha(200),
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset: const Offset(0, 3),

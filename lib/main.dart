@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Tools for Flutter',
-      theme: ThemeData.light(),
+      theme: ThemeData.light(useMaterial3: true),
       darkTheme: ThemeData.dark(),
       supportedLocales: const [
         Locale('zh', 'CN'),

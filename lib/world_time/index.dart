@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tools/agent/api.dart';
 import 'package:web/web.dart' as web;
+import 'package:intl/intl.dart';
 
 class WorldTimePage extends StatefulWidget {
   const WorldTimePage({super.key});
@@ -26,12 +27,12 @@ class _WorldTimeState extends State<WorldTimePage>
   bool lock = false;
 
   String get formattedTimeZoneOffset {
-    /// 时区偏移, 需要显示为+/-HH:MM格式
     final Duration timeZoneOffset = _currentTime.timeZoneOffset;
-    final int hours = timeZoneOffset.inHours;
-    final int minutes = timeZoneOffset.inMinutes % 60;
-    return '${hours.isNegative ? "-" : "+"}'
-        '${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}';
+    final String sign = timeZoneOffset.isNegative ? '-' : '+';
+    final int hours = timeZoneOffset.inHours.abs();
+    final int minutes = (timeZoneOffset.inMinutes % 60).abs();
+
+    return '$sign${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
   }
 
   DateTime get displayRemoteTime {
@@ -43,41 +44,65 @@ class _WorldTimeState extends State<WorldTimePage>
     super.initState();
     web.document.title = "世界时间";
     fetchWorldTime();
+    _initializeVisibilityChangeListener();
+  }
 
+  void _initializeVisibilityChangeListener() {
     _visibilityChangeSubscription =
         web.document.onVisibilityChange.listen((event) {
       if (web.document.hidden) {
-        _visibilityChangeTimer =
-            Timer.periodic(const Duration(seconds: 1), (timer) {
-          _visibilityChangeInt = timer.tick;
-          web.document.title = "⏰ ${timer.tick} 秒";
-          if (timer.tick > 30) {
-            timer.cancel();
-            _ticker?.stop();
-            remoteTime = null;
-            web.document.title = "💤 已休眠";
-          }
-        });
+        _startVisibilityChangeTimer();
       } else {
-        // _visibilityChangeTicker?.dispose();
-        _visibilityChangeTimer?.cancel();
-        if (_visibilityChangeInt > 30) {
-          fetchWorldTime();
-        }
-        _visibilityChangeInt = 0;
-        web.document.title = "世界时间";
+        _stopVisibilityChangeTimer();
+        _resumeWorldTimeIfNeeded();
       }
     });
+  }
+
+  void _startVisibilityChangeTimer() {
+    _visibilityChangeTimer =
+        Timer.periodic(const Duration(seconds: 1), (timer) {
+      _visibilityChangeInt = timer.tick;
+      web.document.title = "⏰ ${timer.tick} 秒";
+      if (timer.tick > 30) {
+        timer.cancel();
+        _ticker?.stop();
+        remoteTime = null;
+        web.document.title = "💤 已休眠";
+      }
+    });
+  }
+
+  void _stopVisibilityChangeTimer() {
+    _visibilityChangeTimer?.cancel();
+  }
+
+  void _resumeWorldTimeIfNeeded() {
+    if (_visibilityChangeInt > 30) {
+      fetchWorldTime();
+    }
+    _visibilityChangeInt = 0;
+    web.document.title = "世界时间";
   }
 
   void fetchWorldTime() async {
     if (lock) return;
     lock = true;
-    var data = await APIProvider.getSysTime();
-    setState(() {
-      remoteTime = data.$1;
-      delay = data.$2;
-    });
+
+    try {
+      var data = await APIProvider.getSysTime();
+      setState(() {
+        remoteTime = data.$1;
+        delay = data.$2;
+      });
+
+      _updateTicker();
+    } finally {
+      lock = false;
+    }
+  }
+
+  void _updateTicker() {
     _ticker?.dispose();
     _ticker = createTicker((Duration duration) {
       setState(() {
@@ -88,7 +113,6 @@ class _WorldTimeState extends State<WorldTimePage>
       }
     });
     _ticker?.start();
-    lock = false;
   }
 
   Widget _buildTimeSection(BuildContext context,
@@ -155,15 +179,24 @@ class _WorldTimeState extends State<WorldTimePage>
                       title: "标准(UTC)时间",
                       content: remoteTime == null
                           ? "校准中..."
-                          : displayRemoteTime.toString(),
+                          : DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+                              .format(displayRemoteTime),
                     ),
-                    if (remoteTime != null)
+                    if (remoteTime != null) ...[
+                      _buildTimeSection(
+                        context,
+                        isDarkMode: isDarkMode,
+                        title: "当前时区时间",
+                        content: DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+                            .format(displayRemoteTime.toLocal()),
+                      ),
                       _buildTimeSection(
                         context,
                         isDarkMode: isDarkMode,
                         title: "精准度偏差",
                         content: "±$delay 秒钟",
                       ),
+                    ],
                     _buildTimeSection(
                       context,
                       isDarkMode: isDarkMode,
@@ -176,13 +209,6 @@ class _WorldTimeState extends State<WorldTimePage>
                       title: "当前设备时区偏移",
                       content: formattedTimeZoneOffset,
                     ),
-                    if (remoteTime != null)
-                      _buildTimeSection(
-                        context,
-                        isDarkMode: isDarkMode,
-                        title: "当前时区时间",
-                        content: displayRemoteTime.toLocal().toString(),
-                      ),
                   ],
                 ),
               ),

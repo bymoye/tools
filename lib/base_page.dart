@@ -54,10 +54,10 @@ class BasePage extends StatelessWidget {
                         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withAlpha(100),
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                color: Colors.white.withOpacity(0.2)),
+                            border:
+                                Border.all(color: Colors.white.withAlpha(100)),
                           ),
                           child: TextField(
                             onChanged: GlobalVariable.searchRx.call,
@@ -104,7 +104,7 @@ class BasePage extends StatelessWidget {
                                 .map((e) => ListTile(
                                     title: Text(e.name),
                                     tileColor: e.route == Get.currentRoute
-                                        ? Colors.blue.withOpacity(0.2)
+                                        ? Colors.blue.withAlpha(100)
                                         : null,
                                     onTap: e.onTap))
                                 .toList(),
