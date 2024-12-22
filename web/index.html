@@ -64,14 +64,14 @@
       // Adds the flutter initialization JS code
       {{flutter_js}}
       {{flutter_build_config}}
-      _flutter.buildConfig.builds[0].mainJsPath += "?v={{flutter_service_worker_version}}";
+      _flutter.buildConfig.builds[0].mainJsPath += "?v=" + {{flutter_service_worker_version}};
       // Download main.dart.js
       _flutter.loader.load({
         serviceWorker: {
-          serviceWorkerVersion: "{{flutter_service_worker_version}}",
+          serviceWorkerVersion: {{flutter_service_worker_version}},
         },
         serviceWorkerSettings: {
-          serviceWorkerVersion: "{{flutter_service_worker_version}}",
+          serviceWorkerVersion: {{flutter_service_worker_version}},
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
