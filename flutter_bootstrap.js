@@ -9,10 +9,8 @@ if (!window._flutter) {
 _flutter.buildConfig = {"engineRevision":"cb4b5fff73850b2e42bd4de7cb9a4310a78ac40d","builds":[{"compileTarget":"dart2wasm","renderer":"skwasm","mainWasmPath":"main.dart.wasm","jsSupportRuntimePath":"main.dart.mjs"},{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"}]};
 
 
-_flutter.buildConfig.builds[0].mainJsPath += "?v=" + serviceWorkerVersion;
-
 _flutter.loader.load({
-    serviceWorkerSettings: {
-        serviceWorkerVersion: serviceWorkerVersion
-    }
+  serviceWorkerSettings: {
+    serviceWorkerVersion: "1659655200"
+  }
 });
