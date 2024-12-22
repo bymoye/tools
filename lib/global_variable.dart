@@ -1,5 +1,7 @@
-import 'package:refreshed/refreshed.dart';
+import 'package:flutter/material.dart';
 
 class GlobalVariable {
-  static RxString searchRx = RxString("");
+  static ValueNotifier<ThemeMode> themeModeNotifier =
+      ValueNotifier(ThemeMode.system);
+  static ValueNotifier<String> searchNotifier = ValueNotifier("");
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:refreshed/refreshed.dart';
-import 'package:tools/base_page.dart';
-import 'package:tools/func_enum.dart';
+import 'package:tools/global_variable.dart';
+import 'package:tools/router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,31 +14,26 @@ class MainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Tools for Flutter',
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(),
-      supportedLocales: const [
-        Locale('zh', 'CN'),
-        Locale('en', 'US'),
-      ],
-      getPages: FunctionEnum.values
-          .where((element) => element.route.isNotEmpty)
-          .map(
-            (e) => GetPage(
-              name: e.route,
-              page: () => BasePage(title: e.name, child: e.widget),
-            ),
-          )
-          .toList(),
-
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      // themeMode: themeMode,
-      initialRoute: '/',
+    return ValueListenableBuilder(
+      valueListenable: GlobalVariable.themeModeNotifier,
+      builder: (_, mode, __) {
+        return MaterialApp.router(
+          title: 'Tools for Flutter',
+          theme: ThemeData.light(useMaterial3: true),
+          themeMode: mode,
+          darkTheme: ThemeData.dark(),
+          supportedLocales: const [
+            Locale('zh', 'CN'),
+            Locale('en', 'US'),
+          ],
+          routerConfig: router,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+        );
+      },
     );
   }
 }

@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:refreshed/refreshed.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:tools/qr_code/parse/controller.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class QrCodeParsePage extends StatelessWidget {
@@ -35,32 +33,33 @@ class QrCodeParsePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<QrCodeParseController>(
-      init: QrCodeParseController(),
-      builder: (QrCodeParseController controller) {
-        /// 功能: 1. 拖放文件解析二维码
-        return Center(
-          child: Stack(
-            children: [
-              DropzoneView(
-                operation: DragOperation.copy,
-                cursor: CursorType.Default,
-                onCreated: (ctrl) => controller.dropzoneController = ctrl,
-                onDrop: controller.parse,
-                onHover: controller.onHover,
-                onLeave: () {
-                  controller.isHover(false);
-                },
-              ),
-              const Text("hello"),
-              const SizedBox(height: 20),
-              Text(controller.qrCode.value),
-              Obx(() => controller.image.value),
-              Obx(() => controller.isHover.isTrue ? mask() : const SizedBox()),
-            ],
-          ),
-        );
-      },
-    );
+    return const Text("hello");
+    // return GetBuilder<QrCodeParseController>(
+    //   init: QrCodeParseController(),
+    //   builder: (QrCodeParseController controller) {
+    //     /// 功能: 1. 拖放文件解析二维码
+    //     return Center(
+    //       child: Stack(
+    //         children: [
+    //           DropzoneView(
+    //             operation: DragOperation.copy,
+    //             cursor: CursorType.Default,
+    //             onCreated: (ctrl) => controller.dropzoneController = ctrl,
+    //             onDrop: controller.parse,
+    //             onHover: controller.onHover,
+    //             onLeave: () {
+    //               controller.isHover(false);
+    //             },
+    //           ),
+    //           const Text("hello"),
+    //           const SizedBox(height: 20),
+    //           Text(controller.qrCode.value),
+    //           Obx(() => controller.image.value),
+    //           Obx(() => controller.isHover.isTrue ? mask() : const SizedBox()),
+    //         ],
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

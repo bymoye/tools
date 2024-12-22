@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:refreshed/refreshed.dart';
+import 'package:tools/router.dart';
 import 'package:web/web.dart' as web;
 
 /// 首页
@@ -91,7 +91,7 @@ enum FunctionEnum {
         web.window.open("https://squoosh.app/", "squoosh");
         break;
       default:
-        Get.offAllNamed(route);
+        router.go(route);
     }
   }
 }

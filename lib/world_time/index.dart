@@ -42,7 +42,6 @@ class _WorldTimeState extends State<WorldTimePage>
   @override
   void initState() {
     super.initState();
-    web.document.title = "世界时间";
     fetchWorldTime();
     _initializeVisibilityChangeListener();
   }
