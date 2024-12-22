@@ -90,6 +90,7 @@ class _WorldTimeState extends State<WorldTimePage>
 
     try {
       var data = await APIProvider.getSysTime();
+      if (!mounted) return;
       setState(() {
         remoteTime = data.$1;
         delay = data.$2;

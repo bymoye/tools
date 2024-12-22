@@ -12,10 +12,16 @@ final GoRouter router = GoRouter(
           path: e.route,
           pageBuilder: (context, state) {
             web.document.title = e.name;
-            return MaterialPage(
-              key: state.pageKey,
-              child: BasePage(title: e.name, child: e.widget),
-            );
+            return CustomTransitionPage(
+                key: state.pageKey,
+                child: BasePage(title: e.name, child: e.widget),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                });
           },
         ),
       )

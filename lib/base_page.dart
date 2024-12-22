@@ -5,23 +5,28 @@ import 'package:go_router/go_router.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:tools/func_enum.dart';
 import 'package:tools/global_variable.dart';
+import 'package:tools/utils/material_text.dart';
 import 'package:web/web.dart' as web;
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 class BasePage extends StatelessWidget {
   final Future<Widget> Function() child;
   final String title;
-  // final Rxn<Widget> body = Rxn<Widget>();
   const BasePage({super.key, required this.title, required this.child});
-
-  // bool get isDark => Theme.of(Get.context!).brightness == Brightness.dark;
 
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-
+    timeDilation = 1.3;
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Hero(
+          tag: title,
+          child: MaterialText(
+            title,
+            style: const TextStyle(fontSize: 20),
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         shadowColor: Colors.transparent,
@@ -82,33 +87,38 @@ class BasePage extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 children: [
                   ValueListenableBuilder(
-                      valueListenable: GlobalVariable.searchNotifier,
-                      builder: (context, value, child) {
-                        List<FunctionEnum> list = FunctionEnum.values
-                            .where((element) =>
-                                (GlobalVariable.searchNotifier.value.isNotEmpty
-                                    ? element.name.contains(
-                                        GlobalVariable.searchNotifier.value)
-                                    : true))
-                            .toList();
-                        if (list.isEmpty) {
-                          return const ListTile(
-                            title: Text("没有找到相关工具"),
-                          );
-                        }
-
-                        return Column(
-                          children: (list)
-                              .map((e) => ListTile(
-                                  title: Text(e.name),
-                                  tileColor: e.route ==
-                                          GoRouter.of(context).state?.path
-                                      ? Colors.blue.withAlpha(100)
-                                      : null,
-                                  onTap: e.onTap))
-                              .toList(),
+                    valueListenable: GlobalVariable.searchNotifier,
+                    builder: (context, value, child) {
+                      List<FunctionEnum> list = FunctionEnum.values
+                          .where((element) => (GlobalVariable
+                                  .searchNotifier.value.isNotEmpty
+                              ? element.name
+                                  .contains(GlobalVariable.searchNotifier.value)
+                              : true))
+                          .toList();
+                      if (list.isEmpty) {
+                        return const ListTile(
+                          title: Text("没有找到相关工具"),
                         );
-                      }),
+                      }
+
+                      return Column(
+                        children: (list).map((e) {
+                          bool isCurrent =
+                              e.route == GoRouter.of(context).state?.path;
+                          return Hero(
+                            tag: isCurrent ? "current" : e.name,
+                            child: ListTile(
+                                title: MaterialText(e.name),
+                                tileColor: isCurrent
+                                    ? Colors.blue.withAlpha(100)
+                                    : null,
+                                onTap: e.onTap),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
