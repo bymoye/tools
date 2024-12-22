@@ -268,6 +268,7 @@ class CompiledApp {
       _1064: x0 => x0.type,
       _1066: x0 => x0.preventDefault(),
       _1068: (x0,x1,x2,x3) => x0.initEvent(x1,x2,x3),
+      _1074: x0 => x0.baseURI,
       _1075: x0 => x0.firstChild,
       _1080: x0 => x0.parentElement,
       _1082: x0 => x0.parentNode,
