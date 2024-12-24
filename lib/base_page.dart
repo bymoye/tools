@@ -7,7 +7,6 @@ import 'package:tools/func_enum.dart';
 import 'package:tools/global_variable.dart';
 import 'package:tools/utils/material_text.dart';
 import 'package:web/web.dart' as web;
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 class BasePage extends StatelessWidget {
   final Future<Widget> Function() child;
@@ -17,7 +16,6 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-    timeDilation = 1.3;
     return Scaffold(
       appBar: AppBar(
         title: Hero(
