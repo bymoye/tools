@@ -18,8 +18,10 @@ import 'package:tools/world_time/index.dart' deferred as world_time;
 import 'package:tools/uuid_tools/parse.dart' deferred as uuid_tools;
 import 'package:tools/uuid_tools/generate.dart' deferred as uuid_generate;
 
-/// 二维码工具
-import 'package:tools/qr_code/parse/index.dart' deferred as qr_code_parse;
+/// 条形码工具
+import 'package:tools/barcodes/decode/index.dart' deferred as barcode_decode;
+import 'package:tools/barcodes/generate/index.dart'
+    deferred as barcode_generate;
 
 /// Quill编辑器
 // import 'package:tools/quill_editor/index.dart' deferred as quill_editor;
@@ -31,8 +33,8 @@ enum FunctionEnum {
   worldTime("世界时间", route: "/world-time"),
   uuidParse("UUID解析", route: "/uuid-parse"),
   uuidGenerate("UUID生成", route: "/uuid-generate"),
-  qrCodeParse("二维码解析", route: "/qr-code-parser"),
-  // quillEditor("Quill编辑器", route: "/quill-editor"),
+  barcodesDecode("条形码解析", route: "/barcodes-decode"),
+  barcodesGenerate("条形码生成", route: "/barcodes-generate"),
 
   /// 图片处理
   imageProcess("图片处理");
@@ -70,9 +72,13 @@ enum FunctionEnum {
           await uuid_generate.loadLibrary();
           return uuid_generate.UUuidGeneratePage();
         },
-      FunctionEnum.qrCodeParse => () async {
-          await qr_code_parse.loadLibrary();
-          return qr_code_parse.QrCodeParsePage();
+      FunctionEnum.barcodesDecode => () async {
+          await barcode_decode.loadLibrary();
+          return barcode_decode.BarcodesDecodePage();
+        },
+      FunctionEnum.barcodesGenerate => () async {
+          await barcode_generate.loadLibrary();
+          return barcode_generate.BarcodesGeneratePage();
         },
       // FunctionEnum.quillEditor => () async {
       //     await quill_editor.loadLibrary();

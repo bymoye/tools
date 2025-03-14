@@ -157,60 +157,58 @@ class _WorldTimeState extends State<WorldTimePage>
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
 
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              color: isDarkMode ? Colors.grey[850] : Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            color: isDarkMode ? Colors.grey[850] : Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildTimeSection(
+                    context,
+                    isDarkMode: isDarkMode,
+                    title: "标准(UTC)时间",
+                    content: remoteTime == null
+                        ? "校准中..."
+                        : DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+                            .format(displayRemoteTime),
+                  ),
+                  if (remoteTime != null) ...[
                     _buildTimeSection(
                       context,
                       isDarkMode: isDarkMode,
-                      title: "标准(UTC)时间",
-                      content: remoteTime == null
-                          ? "校准中..."
-                          : DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-                              .format(displayRemoteTime),
-                    ),
-                    if (remoteTime != null) ...[
-                      _buildTimeSection(
-                        context,
-                        isDarkMode: isDarkMode,
-                        title: "当前时区时间",
-                        content: DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-                            .format(displayRemoteTime.toLocal()),
-                      ),
-                      _buildTimeSection(
-                        context,
-                        isDarkMode: isDarkMode,
-                        title: "精准度偏差",
-                        content: "±$delay 秒钟",
-                      ),
-                    ],
-                    _buildTimeSection(
-                      context,
-                      isDarkMode: isDarkMode,
-                      title: "当前设备时区",
-                      content: _currentTime.timeZoneName,
+                      title: "当前时区时间",
+                      content: DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+                          .format(displayRemoteTime.toLocal()),
                     ),
                     _buildTimeSection(
                       context,
                       isDarkMode: isDarkMode,
-                      title: "当前设备时区偏移",
-                      content: formattedTimeZoneOffset,
+                      title: "精准度偏差",
+                      content: "±$delay 秒钟",
                     ),
                   ],
-                ),
+                  _buildTimeSection(
+                    context,
+                    isDarkMode: isDarkMode,
+                    title: "当前设备时区",
+                    content: _currentTime.timeZoneName,
+                  ),
+                  _buildTimeSection(
+                    context,
+                    isDarkMode: isDarkMode,
+                    title: "当前设备时区偏移",
+                    content: formattedTimeZoneOffset,
+                  ),
+                ],
               ),
             ),
           ),

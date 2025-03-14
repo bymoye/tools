@@ -34,32 +34,6 @@
 </head>
 <body>
   <script>
-    // Prevent breaking on pointer binding assertions
-    window.addEventListener('error', function (e) {
-      if (e.message.includes('targetElement == domElement') ||
-        e.message.includes('The targeted input element must be the active input element')) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.warn('Suppressed pointer binding assertion:', e.message);
-        return true;
-      }
-    });
-
-    // Additional error handling for development
-    if (!window.console) window.console = {};
-    if (!window.console.error) window.console.error = function () { };
-    window.console.error = (function (old) {
-      return function (msg) {
-        if (msg && typeof msg === 'string' &&
-          (msg.includes('targetElement == domElement') ||
-            msg.includes('The targeted input element must be the active input element'))) {
-          return;
-        }
-        return old.apply(this, arguments);
-      };
-    })(window.console.error);
-  </script>
-  <script>
     window.addEventListener('load', function(ev) {
       // Adds the flutter initialization JS code
       {{flutter_js}}

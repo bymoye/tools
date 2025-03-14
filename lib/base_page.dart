@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:simple_icons/simple_icons.dart';
+import 'package:simple_icons/simple_icons.dart' show SimpleIcons;
 import 'package:tools/func_enum.dart';
 import 'package:tools/global_variable.dart';
 import 'package:tools/utils/material_text.dart';
