@@ -46,11 +46,11 @@ class _BarcodeDecodePageState extends State<BarcodesDecodePage> {
 
   @override
   void dispose() {
-    super.dispose();
     final appState = BarcodeResultState.of(context);
     appState?.cleanUp();
     disposeZXing();
     web.document.head!.removeChild(script);
+    super.dispose();
   }
 
   @override

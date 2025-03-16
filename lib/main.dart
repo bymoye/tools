@@ -35,9 +35,21 @@ class MainApp extends StatelessWidget {
       builder: (_, mode, __) {
         return MaterialApp.router(
           title: 'Tools for Flutter',
-          theme: ThemeData.light(useMaterial3: true),
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 95, 158, 175), // 主色种子
+              brightness: Brightness.light, // 亮色模式
+            ),
+            useMaterial3: true,
+          ),
           themeMode: mode,
-          darkTheme: ThemeData.dark(useMaterial3: true),
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 95, 158, 175), // 主色种子
+              brightness: Brightness.dark,
+            ),
+            useMaterial3: true,
+          ),
           supportedLocales: const [
             Locale('zh', 'CN'),
             Locale('en', 'US'),

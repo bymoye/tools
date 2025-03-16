@@ -22,12 +22,13 @@ external JSArray<JSString> get contentTypes;
 @JS()
 external ReaderOptions get defaultReaderOptions;
 @JS()
+external WriterOptions get defaultWriterOptions;
+@JS()
 external JSArray<JSString> get eanAddOnSymbols;
 @JS()
 external JSArray<JSString> get linearBarcodeFormats;
 @JS()
 external JSArray<JSString> get matrixBarcodeFormats;
-
 extension type OptionsOverrides._(JSObject _) implements JSObject {
   external factory OptionsOverrides({JSFunction? locateFile});
 }
@@ -244,6 +245,7 @@ Future<Function> loadZXingLibrary({required ZXingType type}) async {
   web.console.log("ZXingWASM loaded".toJS);
   return () {
     purgeZXingModule();
+
     web.document.head!.removeChild(script);
   };
 }
