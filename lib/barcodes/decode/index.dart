@@ -32,7 +32,7 @@ class _BarcodeDecodePageState extends State<BarcodesDecodePage> {
   final web.HTMLScriptElement script = web.HTMLScriptElement()
     ..type = 'text/javascript'
     ..src = './assets/js/picker_directory.js';
-
+  BarcodeResultState? _barcodeResultState;
   @override
   void initState() {
     super.initState();
@@ -46,11 +46,18 @@ class _BarcodeDecodePageState extends State<BarcodesDecodePage> {
 
   @override
   void dispose() {
-    final appState = BarcodeResultState.of(context);
-    appState?.cleanUp();
+    if (_barcodeResultState != null) {
+      _barcodeResultState?.cleanUp();
+    }
     disposeZXing();
     web.document.head!.removeChild(script);
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _barcodeResultState = BarcodeResultState.of(context);
   }
 
   @override
