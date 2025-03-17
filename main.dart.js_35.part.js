@@ -331,7 +331,7 @@ w=A.Y(8,4,A.A(14*(w==null?C.V:w).a/14,1,2)-1)
 w.toString
 E.aOn(d)
 w=A.a([this.d,A.cq(x,x,w),new A.js(1,C.du,this.c,x)],y.p)
-return A.dz(w,C.C,C.D,C.bF,0)}}
+return A.dz(w,C.B,C.D,C.bF,0)}}
 B.aBX.prototype={
 G(){return"_SliderType."+this.b}}
 B.UM.prototype={
@@ -347,7 +347,7 @@ aM(){var x,w=this,v=null
 w.b2()
 w.d=A.bL(v,C.b5,v,1,v,w)
 w.e=A.bL(v,C.b5,v,1,v,w)
-w.f=A.bL(v,C.i0,v,1,v,w)
+w.f=A.bL(v,C.i1,v,1,v,w)
 w.r=A.bL(v,C.y,v,1,v,w)
 x=w.f
 w.a.toString
@@ -434,7 +434,7 @@ if(u==null)u=x.gpS()}r=b8.id
 if(r==null)r=x.gpU()
 t=A.bJ(b9,C.kj)
 t=t==null?b5:t.ay
-if(t===!0)r=r.bT(C.df)
+if(t===!0)r=r.bT(C.de)
 t=b6.a
 s=t.a
 if(s==null)s=x.a
@@ -592,9 +592,9 @@ w=w.f
 w===$&&A.b()
 u.ao=A.c4(C.eo,w,t)},
 gGn(){var x=this.gU8()
-return new A.a0(x,new B.aAI(),A.a_(x).i("a0<1,H>")).kE(0,C.hx)},
+return new A.a0(x,new B.aAI(),A.a_(x).i("a0<1,H>")).kE(0,C.hy)},
 gGm(){var x=this.gU8()
-return new A.a0(x,new B.aAH(),A.a_(x).i("a0<1,H>")).kE(0,C.hx)},
+return new A.a0(x,new B.aAH(),A.a_(x).i("a0<1,H>")).kE(0,C.hy)},
 gU8(){var x,w,v,u=this,t=u.aC
 t.CW.toString
 if(t.ok!=null){x=u.af
@@ -1242,7 +1242,7 @@ q.dX(8,-8)
 q.bo()
 p=r.bF()
 p.saT(d)
-q.fq(A.mg(new A.x(u,t,u+x,s),C.d9))
+q.fq(A.mg(new A.x(u,t,u+x,s),C.d8))
 e.dL()
 e.bS(f.a,f.b-14)
 e.kN(i,i)
@@ -1363,12 +1363,12 @@ v=r.f
 u=A.a_(v).i("a0<1,fM<j>>")
 t=y.N
 s=y.p
-w=A.a([x,C.dX,A.dz(A.a([D.ada,C.nd,A.cV(F.ab7(!0,A.a2(new A.a0(v,new B.atH(),u),!0,u.i("az.E")),new B.atI(r),q,w,t),1)],s),C.C,C.D,C.E,0)],s)
+w=A.a([x,C.dX,A.dz(A.a([D.ada,C.nd,A.cV(F.ab7(!0,A.a2(new A.a0(v,new B.atH(),u),!0,u.i("az.E")),new B.atI(r),q,w,t),1)],s),C.B,C.D,C.E,0)],s)
 if(C.d.n(r.y,"QR")){x=r.z
 v=r.ax
 u=A.a_(v).i("a0<1,fM<j>>")
-w.push(A.dz(A.a([D.adf,C.nd,A.cV(F.ab7(!0,A.a2(new A.a0(v,new B.atJ(),u),!0,u.i("az.E")),new B.atK(r),q,x,t),1)],s),C.C,C.D,C.E,0))}x=r.Q
-w.push(A.dz(A.a([D.ad9,A.cV(new B.Ew(x,new B.atL(r),1,10,9,C.c.aq(x,0),q),1),A.bF(C.c.aq(r.Q,0),q,q,q,q,q,q,q,q,q,q)],s),C.C,C.D,C.E,0))
+w.push(A.dz(A.a([D.adf,C.nd,A.cV(F.ab7(!0,A.a2(new A.a0(v,new B.atJ(),u),!0,u.i("az.E")),new B.atK(r),q,x,t),1)],s),C.B,C.D,C.E,0))}x=r.Q
+w.push(A.dz(A.a([D.ad9,A.cV(new B.Ew(x,new B.atL(r),1,10,9,C.c.aq(x,0),q),1),A.bF(C.c.aq(r.Q,0),q,q,q,q,q,q,q,q,q,q)],s),C.B,C.D,C.E,0))
 w.push(C.dX)
 x=r.as?q:r.gabU()
 v=G.aYV(q,q,C.cF,q,q,q,q,q,q,C.l,q,q,H.pG,q,q,q,q,q,q)
@@ -1378,10 +1378,10 @@ if(x!=null)w.push(new A.aZ(D.pH,A.bF(x,q,q,q,q,D.acc,q,q,q,q,q),q))
 x=r.w
 if(x!=null){v=A.u6(C.b_)
 u=A.dn(8)
-u=A.a([D.ad7,C.dX,A.e7(A.cc(q,E.af7(x,q,q),C.p,q,q,new A.cb(C.l,q,v,u,q,q,C.a3),q,q,q,C.ex,q,q,q),q,q)],s)
+u=A.a([D.ad7,C.dX,A.dV(A.cc(q,E.af7(x,q,q),C.p,q,q,new A.cb(C.l,q,v,u,q,q,C.a3),q,q,q,C.ex,q,q,q),q,q)],s)
 x=r.x
-if(x!=null&&x.length!==0)u.push(new A.aZ(D.pH,A.dz(A.a([B.b_Z(D.Px,D.adq,new B.atM())],s),C.C,C.c8,C.E,0),q))
-w.push(new A.aZ(D.Ok,A.cn(u,C.C,C.D,C.E,0),q))}return I.wC(A.cn(w,C.cS,C.D,C.E,0),q,C.ae)}}
+if(x!=null&&x.length!==0)u.push(new A.aZ(D.pH,A.dz(A.a([B.b_Z(D.Px,D.adq,new B.atM())],s),C.B,C.c8,C.E,0),q))
+w.push(new A.aZ(D.Ok,A.cn(u,C.B,C.D,C.E,0),q))}return A.dV(I.wC(A.cn(w,C.B,C.h1,C.E,20),q,C.ae),q,q)}}
 var z=a.updateTypes(["H(H)","~(H)","~()","~(B)","fM<j>(j)","~(jY)","~(fK)","~(fL)","~(eS)","~(oR)","~(oS)","W<~>()"])
 B.aBU.prototype={
 $0(){this.a.ax=this.b},
@@ -1456,7 +1456,7 @@ B.aBQ.prototype={
 $1(d){if(d.n(0,C.kc))return this.a.gcR().b.b0(0.1)
 if(d.n(0,C.J))return this.a.gcR().b.b0(0.08)
 if(d.n(0,C.K))return this.a.gcR().b.b0(0.1)
-return C.B},
+return C.C},
 $S:7}
 B.atN.prototype={
 $0(){},
@@ -1578,7 +1578,7 @@ u(A.R,[B.Ew,B.lp])
 u(A.U,[B.Kj,B.G1])
 v(B.IP,B.Kj)
 u(A.fI,[B.aBU,B.aBV,B.aBS,B.aBT,B.aBR,B.aAJ,B.atN,B.atP,B.atz,B.atA,B.atB,B.atC,B.atD,B.atG,B.atF,B.atE,B.atM])
-u(A.dV,[B.aBW,B.aAK,B.aAI,B.aAH,B.aBQ,B.atQ,B.atO,B.atI,B.atH,B.atK,B.atJ,B.atL])
+u(A.dW,[B.aBW,B.aAK,B.aAI,B.aAH,B.aBQ,B.atQ,B.atO,B.atI,B.atH,B.atK,B.atJ,B.atL])
 u(A.vt,[B.a3E,B.a4Z])
 u(A.t,[B.Kd,B.Kf])
 v(B.yi,B.Kd)
@@ -1624,7 +1624,7 @@ D.a11=new A.bM([C.dV,D.ah6,C.dW,D.ah7,C.dT,D.Ip,C.dU,D.Io],y.r)
 D.Gk=new B.anQ(null)
 D.a68=new B.aq4(0,"onlyForDiscrete")
 D.Lk=new A.uf(null,null,null,C.l,null,null,null,null)
-D.a7r=new A.e1(24,24,D.Lk,null)
+D.a7r=new A.e2(24,24,D.Lk,null)
 D.a7s=new B.UM(0,"tapAndSlide")
 D.a7t=new B.UM(2,"slideOnly")
 D.acc=new A.n(!0,C.cG,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -1639,4 +1639,4 @@ D.aeD=A.aJ("jY")
 D.ah5=new E.XZ(1,"writer")
 D.aiR=new B.aBX(0,"material")})()};
 ((a,b)=>{a[b]=a.current
-a.eventLog.push({p:"main.dart.js_35",e:"endPart",h:b})})($__dart_deferred_initializers__,"SAeVsFexdfJ9Zlc7bf+eOdLysS0=");
+a.eventLog.push({p:"main.dart.js_35",e:"endPart",h:b})})($__dart_deferred_initializers__,"PzlifkvMWrGCO0sscS5lZDorVwM=");
