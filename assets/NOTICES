@@ -1718,6 +1718,7 @@ POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
 async
 collection
+http2
 mime
 typed_data
 
@@ -7182,7 +7183,7 @@ You may obtain a copy of this library's Source Code Form from: https://dart.goog
 fetch_api
 fetch_client
 
-Copyright 2023-2024 Yaroslav Vorobev and contributors. All rights reserved.
+Copyright 2023-2025 Yaroslav Vorobev and contributors. All rights reserved.
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
