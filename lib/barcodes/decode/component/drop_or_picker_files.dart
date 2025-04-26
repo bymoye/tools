@@ -19,15 +19,17 @@ class DropOrPickerFiles extends StatefulWidget {
 class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
   bool inOperation = false;
 
-  final web.HTMLInputElement inputElement = web.HTMLInputElement()
-    ..type = 'file'
-    ..accept = 'image/*'
-    ..multiple = true;
+  final web.HTMLInputElement inputElement =
+      web.HTMLInputElement()
+        ..type = 'file'
+        ..accept = 'image/*'
+        ..multiple = true;
 
   @override
   Widget build(BuildContext context) {
-    final BarcodeResultState? barcodeResultState =
-        BarcodeResultState.of(context);
+    final BarcodeResultState? barcodeResultState = BarcodeResultState.of(
+      context,
+    );
     if (barcodeResultState == null) {
       return const SizedBox();
     }
@@ -41,7 +43,7 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
         Formats.bmp,
         Formats.ico,
         Formats.heic,
-        Formats.heif
+        Formats.heif,
       ],
       hitTestBehavior: HitTestBehavior.opaque,
       onDropOver: (DropOverEvent event) async {
@@ -55,19 +57,24 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
         barcodeResultState.cleanUp();
         final List<Object?> files = await Future.wait(
           event.session.items
-              .where((item) =>
-                  item.dataReader?.platformFormats
-                      .any((format) => format.contains('image/')) ??
-                  false) // 只处理 image 文件
+              .where(
+                (item) =>
+                    item.dataReader?.platformFormats.any(
+                      (format) => format.contains('image/'),
+                    ) ??
+                    false,
+              ) // 只处理 image 文件
               .map((item) async {
-            try {
-              final data =
-                  item.dataReader!.rawReader!.getDataForFormat("web:file");
-              return data.$1;
-            } catch (e) {
-              return null; // 返回 null 以便过滤错误的文件
-            }
-          }).whereType<Future<Object?>>(), // 过滤掉 null 值的文件
+                try {
+                  final data = item.dataReader!.rawReader!.getDataForFormat(
+                    "web:file",
+                  );
+                  return data.$1;
+                } catch (e) {
+                  return null; // 返回 null 以便过滤错误的文件
+                }
+              })
+              .whereType<Future<Object?>>(), // 过滤掉 null 值的文件
         );
 
         await Future.wait(
@@ -79,10 +86,7 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
       },
       child: Card(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 800,
-            maxHeight: 300,
-          ),
+          constraints: const BoxConstraints(maxWidth: 800, maxHeight: 300),
           child: Stack(
             children: [
               Column(
@@ -98,9 +102,9 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
                           backgroundColor:
                               inOperation ? Colors.grey : Colors.blueAccent,
                           side: BorderSide(
-                              color: inOperation
-                                  ? Colors.grey
-                                  : Colors.blueAccent),
+                            color:
+                                inOperation ? Colors.grey : Colors.blueAccent,
+                          ),
                         ),
                         onPressed: () async {
                           setState(() {
@@ -116,7 +120,8 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
                                   for (int i = 0; i < files.length; i++)
                                     barcodeResultState
                                         .readBarcodesFromImageFile(
-                                            files.item(i)!),
+                                          files.item(i)!,
+                                        ),
                                 ]);
                               }
                             });
@@ -139,9 +144,9 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
                           backgroundColor:
                               inOperation ? Colors.grey : Colors.blueAccent,
                           side: BorderSide(
-                              color: inOperation
-                                  ? Colors.grey
-                                  : Colors.blueAccent),
+                            color:
+                                inOperation ? Colors.grey : Colors.blueAccent,
+                          ),
                         ),
                         onPressed: () async {
                           setState(() {
@@ -160,7 +165,7 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
                           } catch (e) {
                             if (context.mounted) {
                               InteractiveToast.slideError(
-                                context,
+                                context: context,
                                 title: Text(
                                   "选择文件夹失败",
                                   textAlign: TextAlign.center,
@@ -185,15 +190,17 @@ class _DropOrPickerFilesState extends State<DropOrPickerFiles> {
                         child: Text(
                           '选择文件夹',
                           style: TextStyle(
-                              fontSize: 16,
-                              color:
-                                  inOperation ? Colors.blueGrey : Colors.white),
+                            fontSize: 16,
+                            color: inOperation ? Colors.blueGrey : Colors.white,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Text(inOperation ? "选择/放下文件" : '或拖放文件到此处',
-                      style: DefaultTextStyle.of(context).style),
+                  Text(
+                    inOperation ? "选择/放下文件" : '或拖放文件到此处',
+                    style: DefaultTextStyle.of(context).style,
+                  ),
                 ],
               ),
               if (barcodeResultState.items.isNotEmpty)

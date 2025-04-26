@@ -322,25 +322,27 @@ class _BarcodesGeneratePageState extends State<BarcodesGeneratePage> {
                           borderRadius: BorderRadius.circular(8),
                           color: Colors.white,
                         ),
-                        child: Image.network(_imageUrl!),
+                        child: Image.network(_imageUrl!,
+                            webHtmlElementStrategy:
+                                WebHtmlElementStrategy.prefer),
                       ),
                     ),
-                    if (_svgContent != null && _svgContent!.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            OutlinedButton.icon(
-                              icon: const Icon(Icons.copy),
-                              label: const Text('复制SVG代码'),
-                              onPressed: () {
-                                /// TODO: 复制
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                    // if (_svgContent != null && _svgContent!.isNotEmpty)
+                    //   Padding(
+                    //     padding: const EdgeInsets.only(top: 16),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         OutlinedButton.icon(
+                    //           icon: const Icon(Icons.copy),
+                    //           label: const Text('复制SVG代码'),
+                    //           onPressed: () {
+                    //             /// TODO: 复制
+                    //           },
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
                   ],
                 ),
               ),

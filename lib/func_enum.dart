@@ -23,6 +23,9 @@ import 'package:tools/barcodes/decode/index.dart' deferred as barcode_decode;
 import 'package:tools/barcodes/generate/index.dart'
     deferred as barcode_generate;
 
+/// http2 hpack
+import 'package:tools/hpack_huffman/index.dart' deferred as hpack_huffman;
+
 /// Quill编辑器
 // import 'package:tools/quill_editor/index.dart' deferred as quill_editor;
 
@@ -35,6 +38,9 @@ enum FunctionEnum {
   uuidGenerate("UUID生成", route: "/uuid-generate"),
   barcodesDecode("条形码解析", route: "/barcodes-decode"),
   barcodesGenerate("条形码生成", route: "/barcodes-generate"),
+
+  /// http2 hpack
+  hpackHuffmanEncoding("HPACK Huffman 编码/解码", route: "/hpack-huffman"),
 
   /// 图片处理
   imageProcess("图片处理");
@@ -49,45 +55,49 @@ enum FunctionEnum {
   Future<Widget> Function() get widget {
     return switch (this) {
       FunctionEnum.defaultPage => () async {
-          await index.loadLibrary();
-          return index.IndexPage();
-        },
+        await index.loadLibrary();
+        return index.IndexPage();
+      },
       FunctionEnum.dateCalculation => () async {
-          await date_calculation.loadLibrary();
-          return date_calculation.DateCalculationPage();
-        },
+        await date_calculation.loadLibrary();
+        return date_calculation.DateCalculationPage();
+      },
       FunctionEnum.jsonUtils => () async {
-          await json_utils.loadLibrary();
-          return json_utils.JsonUtilsPage();
-        },
+        await json_utils.loadLibrary();
+        return json_utils.JsonUtilsPage();
+      },
       FunctionEnum.worldTime => () async {
-          await world_time.loadLibrary();
-          return world_time.WorldTimePage();
-        },
+        await world_time.loadLibrary();
+        return world_time.WorldTimePage();
+      },
       FunctionEnum.uuidParse => () async {
-          await uuid_tools.loadLibrary();
-          return uuid_tools.UuidParsePage();
-        },
+        await uuid_tools.loadLibrary();
+        return uuid_tools.UuidParsePage();
+      },
       FunctionEnum.uuidGenerate => () async {
-          await uuid_generate.loadLibrary();
-          return uuid_generate.UUuidGeneratePage();
-        },
+        await uuid_generate.loadLibrary();
+        return uuid_generate.UUuidGeneratePage();
+      },
       FunctionEnum.barcodesDecode => () async {
-          await barcode_decode.loadLibrary();
-          return barcode_decode.BarcodesDecodePage();
-        },
+        await barcode_decode.loadLibrary();
+        return barcode_decode.BarcodesDecodePage();
+      },
       FunctionEnum.barcodesGenerate => () async {
-          await barcode_generate.loadLibrary();
-          return barcode_generate.BarcodesGeneratePage();
-        },
+        await barcode_generate.loadLibrary();
+        return barcode_generate.BarcodesGeneratePage();
+      },
+      FunctionEnum.hpackHuffmanEncoding => () async {
+        await hpack_huffman.loadLibrary();
+        return hpack_huffman.HpackHuffmanPage();
+      },
       // FunctionEnum.quillEditor => () async {
       //     await quill_editor.loadLibrary();
       //     return quill_editor.QuillEditorPage();
       //     // return const SizedBox();
       //   },
       _ => () async {
-          return const SizedBox();
-        }
+        return const SizedBox();
+      },
     };
   }
 
